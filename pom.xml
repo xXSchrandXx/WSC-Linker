@@ -6,7 +6,7 @@
 
 	<groupId>de.xxschrandxx.wsc</groupId>
 	<artifactId>wsclinker</artifactId>
-	<version>1.0.7</version>
+	<version>1.0.8</version>
 
 	<name>WSC-Linker</name>
 	<url>https://github.com/xXSchrandXx/WSC-Minecraft-Linker</url>
@@ -27,6 +27,11 @@
 		<repository>
 			<id>hytale-repo</id>
 			<url>https://maven.hytale.com/release</url>
+		</repository>
+		<!-- Velocity Repo -->
+		<repository>
+			<id>papermc</id>
+			<url>https://repo.papermc.io/repository/maven-public/</url>
 		</repository>
 	</repositories>
 
@@ -50,11 +55,18 @@
 			<artifactId>Server</artifactId>
 			<version>2026.01.24-6e2d4fc36</version>
 		</dependency>
+		<!-- Velocity-->
+		<dependency>
+			<groupId>com.velocitypowered</groupId>
+			<artifactId>velocity-api</artifactId>
+			<version>3.5.0-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- WSC-Minecraft-Bridge -->
 		<dependency>
 			<groupId>de.xxschrandxx.wsc</groupId>
 			<artifactId>wscbridge</artifactId>
-			<version>3.0.3</version>
+			<version>3.0.5</version>
 		</dependency>
 	</dependencies>
 
@@ -67,6 +79,29 @@
 			</resource>
 		</resources>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.3.1</version>
+				<executions>
+					<execution>
+						<id>filter-sources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.sourceDirectory}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/java</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
